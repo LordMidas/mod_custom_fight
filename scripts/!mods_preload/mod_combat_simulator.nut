@@ -244,6 +244,12 @@
 		o.onTurnStart = function()
 		{
 			local ret = onTurnStart();
+			if (::CombatSimulator.isCombatSimulatorFight())
+			{
+				if (this.isPlayerControlled())
+					this.Const.Faction.Player = this.getFaction();
+				else this.Const.Faction.Player = 1;
+			}
 			this.combatsim_updateVisibilityForPlayer();
 			return ret;
 		}
