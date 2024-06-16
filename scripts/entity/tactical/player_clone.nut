@@ -32,7 +32,6 @@ this.player_clone <- this.inherit("scripts/entity/tactical/player", {
 			corpse.IsPlayer = true;
 			corpse.Value = 10.0;
 		}
-		this.onRemovedFromMap();
 	}
 
 	function isReallyKilled( _fatalityType )
