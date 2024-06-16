@@ -281,7 +281,7 @@
 				return;
 			if (!this.isPlayerControlled())
 				return;
-			this.updateVisibility(this.getTile(), this.m.CurrentProperties.getVision(), this.Const.Faction.Player);
+			this.updateVisibility(this.getTile(), this.m.CurrentProperties.getVision(), 1);
 		}
 	})
 })
