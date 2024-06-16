@@ -49,7 +49,7 @@
 		{
 			local ret = tactical_helper_getEntityTooltip( _targetedEntity, _activeEntity, _isTileEntity );
 			if (ret != null || !::CombatSimulator.isCombatSimulatorFight())
-				return null
+				return ret
 			if (this.Tactical.State != null && this.Tactical.State.getCurrentActionState() == this.Const.Tactical.ActionState.SkillSelected)
 			{
 				if (_activeEntity != null && this.isKindOf(_targetedEntity, "actor") && _activeEntity.isPlayerControlled() && _targetedEntity != null && _targetedEntity.getFaction() != _activeEntity.getFaction())
