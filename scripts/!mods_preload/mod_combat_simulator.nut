@@ -130,36 +130,6 @@
 		}
 	})
 
-
-	::mods_hookNewObject("ui/screens/character/character_screen", function(o){
-		local tactical_onQueryBrothersList = o.tactical_onQueryBrothersList;
-		o.tactical_onQueryBrothersList = function()
-		{
-			local ret = tactical_onQueryBrothersList();
-			if (!::CombatSimulator.isCombatSimulatorFight())
-				return ret;
-
-			local extraUnits = [];
-			local activeEntity = this.Tactical.TurnSequenceBar.getActiveEntity();
-			local activeEntityFaction = activeEntity.getFaction();
-			if (activeEntityFaction == this.Const.Faction.Player)
-				return ret;
-
-			local units = this.Tactical.Entities.getInstancesOfFaction(activeEntityFaction);
-			foreach( i, unit in units )
-			{
-				if (unit.ClassName == "player_clone")
-					extraUnits.push(this.UIDataHelper.convertEntityToUIData(unit, activeEntity));
-			}
-			if (ret != null)
-			{
-				ret.extend(extraUnits);
-				return ret;
-			}
-			else return extraUnits
-		}
-	})
-
 	::mods_hookExactClass("states/tactical_state", function(o){
 		local setInputLocked = o.setInputLocked;
 		o.setInputLocked = function(_bool)
@@ -280,12 +250,6 @@
 		o.onTurnStart = function()
 		{
 			local ret = onTurnStart();
-			if (::CombatSimulator.isCombatSimulatorFight())
-			{
-				if (this.isPlayerControlled())
-					this.Const.Faction.Player = this.getFaction();
-				else this.Const.Faction.Player = 1;
-			}
 			this.combatsim_updateVisibilityForPlayer();
 			return ret;
 		}
