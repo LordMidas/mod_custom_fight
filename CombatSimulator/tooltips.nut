@@ -20,7 +20,7 @@
 			StartEmptyMode = ::MSU.Class.BasicTooltip("Start Empty Mode", "Start Empty Mode."),
 			IsFleeingProhibited = ::MSU.Class.BasicTooltip("Fleeing Probhibited", "Block fleeing, like in the arena."),
 			SpawnCompany = ::MSU.Class.BasicTooltip("Spawn Company", "Spawn your bros. This is unavailable if you spawn a bro using the 'Add Bro' button."),
-			ControlAllies = ::MSU.Class.BasicTooltip("Control Units", "If this is checked, you can control the units of this faction."),
+			ControlUnits = ::MSU.Class.BasicTooltip("Control Units", "If this is checked, you can control the units of this faction."),
 		},
 		Spawnlist = {
 			Main = {
@@ -59,6 +59,9 @@
 		FactionButton = ::MSU.Class.BasicTooltip("Switch Faction", "Switch to the next faction."),
 		UnitRow = ::MSU.Class.BasicTooltip("Spawn Unit", "Drag and drop this unit onto a battlefield tile to spawn it."),
 		FilterBar = ::MSU.Class.BasicTooltip("Filter units", "Filter the units based on their name."),
+		Settings = {
+			ControlUnits = ::MSU.Class.BasicTooltip("Control Units", "If this is checked, you can control the units of this faction."),
+		},
 	},
 	Tactical = 
 	{

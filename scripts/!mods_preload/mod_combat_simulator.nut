@@ -1,17 +1,16 @@
 ::CombatSimulator <- {
 	ID = "mod_combat_simulator"
 	Name = "Combat Simulator"
-	Version = "1.0.1"
+	Version = "1.1.0"
 	Const = {}
+	function setCombatSimulatorFightFlag(_bool)
+	{
+		::World.Flags.set("isCombatSimulatorFight", _bool);
+	}
 	function isCombatSimulatorFight()
 	{
-		local state = this.Tactical.State;
-		if (state == null)
-			return false;
-		local properties = this.Tactical.State.getStrategicProperties();
-		if (properties.CombatID != "CombatSimulator") 
-			return false;
-		return true;
+		return ::World.Flags.get("isCombatSimulatorFight");
+
 	}
 }
 ::mods_registerMod(::CombatSimulator.ID, ::CombatSimulator.Version)
@@ -235,6 +234,45 @@
 				::CombatSimulator.Screen.setTopBarButtonsDisplay(true);
 		}
 	})
+
+	::mods_hookNewObject("ui/screens/character/character_screen", function(o){
+		local tactical_onQueryBrothersList = o.tactical_onQueryBrothersList;
+		o.tactical_onQueryBrothersList = function()
+		{
+			if (!::CombatSimulator.isCombatSimulatorFight())
+				return tactical_onQueryBrothersList();
+
+			local result = [];
+			local activeEntity = this.Tactical.TurnSequenceBar.getActiveEntity();
+			if (activeEntity == null) {
+				return null;
+			}
+
+			local entities = this.Tactical.Entities.getInstancesOfFaction(activeEntity.getFaction());
+
+			if (entities != null && entities.len() > 0)
+			{
+				
+				local result = [];
+
+				foreach( entity in entities )
+				{
+
+					try {
+					   result.push(this.UIDataHelper.convertEntityToUIData(entity, activeEntity));
+					} catch(exception) {
+					    ::logWarning("CombatSimulator: Failed to add entity to character screen:")
+					    ::logWarning(exception)
+					}
+				}
+
+				return result;
+			}
+
+			return null;
+		}
+	})
+
 
 	::mods_hookExactClass("entity/tactical/actor", function(o)
 	{
