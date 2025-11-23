@@ -173,6 +173,45 @@
 		}
 	})
 
+	::mods_hookNewObject("ui/screens/character/character_screen", function(o){
+		local tactical_onQueryBrothersList = o.tactical_onQueryBrothersList;
+		o.tactical_onQueryBrothersList = function()
+		{
+			if (!::CombatSimulator.isCombatSimulatorFight())
+				return tactical_onQueryBrothersList();
+
+			local result = [];
+			local activeEntity = this.Tactical.TurnSequenceBar.getActiveEntity();
+			if (activeEntity == null) {
+				return null;
+			}
+
+			local entities = this.Tactical.Entities.getInstancesOfFaction(activeEntity.getFaction());
+
+			if (entities != null && entities.len() > 0)
+			{
+				
+				local result = [];
+
+				foreach( entity in entities )
+				{
+
+					try {
+					   result.push(this.UIDataHelper.convertEntityToUIData(entity, activeEntity));
+					} catch(exception) {
+					    ::logWarning("CombatSimulator: Failed to add entity to character screen:")
+					    ::logWarning(exception)
+					}
+				}
+
+				return result;
+			}
+
+			return null;
+		}
+	})
+
+
 	::mods_hookExactClass("entity/tactical/actor", function(o)
 	{
 		local onTurnStart = o.onTurnStart;

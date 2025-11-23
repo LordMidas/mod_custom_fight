@@ -341,6 +341,9 @@ this.combat_simulator_setup <- {
 
 		if (::isKindOf(_e, "player_clone"))
 			return this.setupBro(_e);
+
+		this.addPlayerFunctionStubs(_e);
+
 		local faction = ::World.FactionManager.getFaction(_e.getFaction())
 
 		if (faction.m.ControlUnits)
@@ -403,6 +406,60 @@ this.combat_simulator_setup <- {
 			}
 		}
 	}
+
+	function addPlayerFunctionStubs(_e)
+	{
+		_e.getPerkPoints <- function() {
+			return 0;
+		}
+		_e.getPerkPointsSpent <- function() {
+			return 0;
+		}
+		_e.getDaysWithCompany <- function() {
+			return 0;
+		}
+		_e.getXP <- function() {
+			return 0;
+		}
+		_e.getXPForNextLevel <- function() {
+			return 9999;
+		}
+		_e.getDailyCost <- function() {
+			return 9999;
+		}
+		_e.getDaysWounded <- function() {
+			return 0;
+		}
+		_e.getXPForNextLevel <- function() {
+			return 9999;
+		}
+		_e.isLeveled <- function() {
+			return false;
+		}
+		_e.getLevelUps <- function() {
+			return 0;
+		}
+		_e.getMoodState <- function() {
+			return 3.0
+		}
+		_e.getTalents <- function() {
+			return [0, 0, 0, 0, 0, 0, 0, 0]
+			this.Const.Attributes.COUNT
+		}
+		_e.getRosterTooltip <- function()
+		{
+			local tooltip = [
+				{
+					id = 1,
+					type = "title",
+					text = this.getName()
+				}
+			];
+			return tooltip;
+		}
+	}
+
+
 	function addPlayerAgentToEntity(_entity)
 	{
 		if ("combatsim_AIAgent" in _entity.m)
