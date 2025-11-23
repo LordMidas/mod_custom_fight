@@ -402,7 +402,10 @@ this.combat_simulator_setup <- {
 		local items = _e.getItems().getAllItems();
 		foreach (item in items)
 		{
-			item.setCondition(item.getConditionMax());
+			if (::MSU.isKindOf(item, "weapon")) 
+			{
+				item.setCondition(item.getConditionMax()- 1);
+			} 
 			if ("Ammo" in item.m && "AmmoMax" in item.m)
 			{
 				item.m.Ammo = item.m.AmmoMax;
