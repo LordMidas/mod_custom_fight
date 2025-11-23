@@ -463,6 +463,19 @@ this.combat_simulator_setup <- {
 			];
 			return tooltip;
 		}
+
+		_e.getPerkTree <- function()
+		{
+			return ::DynamicPerks.getDefaultPerkTree();
+		}
+		_e.getPerkTier <- function()
+		{
+			return ::DynamicPerks.Const.DefaultPerkTier;
+		}
+		_e.isPerkUnlockable <- function( _id )
+		{
+			return false;
+		}
 	}
 
 
