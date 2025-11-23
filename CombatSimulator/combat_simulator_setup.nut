@@ -179,6 +179,7 @@ this.combat_simulator_setup <- {
 			::CombatSimulator.Screen.getButton("FOV").setValue(false);
 			p.IsFogOfWarVisible = false;
 		}
+		::CombatSimulator.setCombatSimulatorFightFlag(true);
 		this.World.State.startScriptedCombat(p, false, false, true);
 	}
 
@@ -469,9 +470,12 @@ this.combat_simulator_setup <- {
 
 	function cleanupAfterFight()
 	{
-		::CombatSimulator.Screen.resetButtonValues();		
-		this.removeFactions();
-		if (this.m.Roster != null)
-			this.m.Roster.clear();
+		if (::CombatSimulator.isCombatSimulatorFight()) {
+			::CombatSimulator.Screen.resetButtonValues();
+			this.removeFactions();
+			if (this.m.Roster != null)
+				this.m.Roster.clear();
+		}
+		::CombatSimulator.setCombatSimulatorFightFlag(false);
 	}
 }

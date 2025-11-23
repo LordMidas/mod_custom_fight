@@ -3,15 +3,14 @@
 	Name = "Combat Simulator"
 	Version = "1.0.1"
 	Const = {}
+	function setCombatSimulatorFightFlag(_bool)
+	{
+		::World.Flags.set("isCombatSimulatorFight", _bool);
+	}
 	function isCombatSimulatorFight()
 	{
-		local state = this.Tactical.State;
-		if (state == null)
-			return false;
-		local properties = this.Tactical.State.getStrategicProperties();
-		if (properties.CombatID != "CombatSimulator") 
-			return false;
-		return true;
+		return ::World.Flags.get("isCombatSimulatorFight");
+
 	}
 }
 ::mods_registerMod(::CombatSimulator.ID, ::CombatSimulator.Version)
