@@ -336,6 +336,9 @@ this.combat_simulator_setup <- {
 	{
 		if (!::CombatSimulator.isCombatSimulatorFight())
 			return;
+
+		this.repairItems(_e);
+
 		if (::isKindOf(_e, "player_clone"))
 			return this.setupBro(_e);
 		local faction = ::World.FactionManager.getFaction(_e.getFaction())
@@ -388,6 +391,18 @@ this.combat_simulator_setup <- {
 		}
 	}
 
+	function repairItems(_e)
+	{
+		local items = _e.getItems().getAllItems();
+		foreach (item in items)
+		{
+			item.setCondition(item.getConditionMax());
+			if ("Ammo" in item.m && "AmmoMax" in item.m)
+			{
+				item.m.Ammo = item.m.AmmoMax;
+			}
+		}
+	}
 	function addPlayerAgentToEntity(_entity)
 	{
 		if ("combatsim_AIAgent" in _entity.m)
