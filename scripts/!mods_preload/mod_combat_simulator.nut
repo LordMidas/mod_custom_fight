@@ -1,7 +1,7 @@
 ::CombatSimulator <- {
 	ID = "mod_combat_simulator"
 	Name = "Combat Simulator"
-	Version = "1.1.1"
+	Version = "1.1.3"
 	Const = {}
 	function setCombatSimulatorFightFlag(_bool)
 	{
@@ -25,6 +25,11 @@
 	::mods_registerCSS("CombatSimulator_TacticalScreenTopbarOptionsModule.css");
 
 	::CombatSimulator.Mod <- ::MSU.Class.Mod(::CombatSimulator.ID, ::CombatSimulator.Version, ::CombatSimulator.Name); 
+	::CombatSimulator.Mod.Registry.addModSource(::MSU.System.Registry.ModSourceDomain.NexusMods, "https://www.nexusmods.com/battlebrothers/mods/564");
+	::CombatSimulator.Mod.Registry.addModSource(::MSU.System.Registry.ModSourceDomain.GitHubTags, "https://github.com/TaroEld/mod_custom_fight/");
+	::CombatSimulator.Mod.Registry.setUpdateSource(::MSU.System.Registry.ModSourceDomain.GitHubTags);
+
+
 	::CombatSimulator.Screen <- this.new("scripts/ui/screens/combat_simulator_screen");
 	::CombatSimulator.SpawnScreen <- this.new("scripts/ui/screens/combat_simulator_spawn_screen");
 
