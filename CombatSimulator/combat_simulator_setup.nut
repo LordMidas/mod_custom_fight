@@ -112,6 +112,30 @@ this.combat_simulator_setup <- {
 		return ret;
 	}
 
+	function setupFightHandler(_data) 
+	{
+		::CombatSimulator.setCombatSimulatorFightFlag(true);
+
+		if (::CombatSimulator.Mod.ModSettings.getSetting("DisableErrorHandling").getValue()) 
+		{
+			this.setupFight(_data);
+		}
+		else 
+		{
+			try
+			{
+				this.setupFight(_data);
+			}
+			catch (exception)
+			{
+				local msg = "CombatSimulator: Failed to add entity to character screen: " + exception;
+			    ::logWarning(msg)
+				::CombatSimulator.Mod.Debug.addPopupMessage(msg);
+			    this.cleanupAfterFight();
+			}
+		}
+	}
+
 	function setupFight(_data)
 	{
 		this.createRoster();
@@ -182,7 +206,6 @@ this.combat_simulator_setup <- {
 			::CombatSimulator.Screen.getButton("FOV").setValue(false);
 			p.IsFogOfWarVisible = false;
 		}
-		::CombatSimulator.setCombatSimulatorFightFlag(true);
 		this.World.State.startScriptedCombat(p, false, false, true);
 	}
 

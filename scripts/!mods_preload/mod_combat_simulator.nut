@@ -231,8 +231,9 @@
 					try {
 					   result.push(this.UIDataHelper.convertEntityToUIData(entity, activeEntity));
 					} catch(exception) {
-					    ::logWarning("CombatSimulator: Failed to add entity to character screen:")
-					    ::logWarning(exception)
+						local msg = "CombatSimulator: Failed to add entity to character screen: " + exception
+					    ::logWarning(msg)
+						::CombatSimulator.Mod.Debug.addPopupMessage(msg);
 					}
 				}
 

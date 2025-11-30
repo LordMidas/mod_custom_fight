@@ -219,7 +219,7 @@ this.combat_simulator_screen <- ::inherit("scripts/mods/msu/ui_screen", {
 	function onOkButtonPressed(_data)
 	{
 		this.hide();
-		::CombatSimulator.Setup.setupFight(_data);
+		::CombatSimulator.Setup.setupFightHandler(_data);
 	}
 
 	function getButton(_id)

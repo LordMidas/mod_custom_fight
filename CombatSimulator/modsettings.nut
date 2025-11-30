@@ -1,2 +1,3 @@
 local generalPage = ::CombatSimulator.Mod.ModSettings.addPage("General");
 generalPage.addBooleanSetting("AllowSettings", false, "Allow Settings", "Allow the topbar buttons and the spawner screen to work in normal fights, outside of Combat Simulators.");
+generalPage.addBooleanSetting("DisableErrorHandling", false, "Disable Error Handling", "For safety reasons, Combat Simulator tries to stop errors from affecting your game. However, this makes it difficult to find the exact source of the error. Enable this setting and click the start button again before sending your log.html to developers. DON'T SAVE YOUR GAME AFTERWARDS - DISABLE THIS SETTING AGAIN AND RESTART YOUR GAME!!!");
