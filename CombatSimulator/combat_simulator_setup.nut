@@ -449,8 +449,7 @@ this.combat_simulator_setup <- {
 			return 3.0
 		}
 		_e.getTalents <- function() {
-			return [0, 0, 0, 0, 0, 0, 0, 0]
-			this.Const.Attributes.COUNT
+			return [0, 0, 0, 0, 0, 0, 0, 0];
 		}
 		_e.getRosterTooltip <- function()
 		{
@@ -463,7 +462,7 @@ this.combat_simulator_setup <- {
 			];
 			return tooltip;
 		}
-
+		// reforged
 		_e.getPerkTree <- function()
 		{
 			return ::DynamicPerks.getDefaultPerkTree();
@@ -476,6 +475,12 @@ this.combat_simulator_setup <- {
 		{
 			return false;
 		}
+
+		// legends
+		_e.getBackground <- function() {return null}
+		_e.isInReserves <- function() { return false};
+		_e.isStabled <- function() { return false};
+		_e.getRiderID <- function() { return ""};
 	}
 
 
