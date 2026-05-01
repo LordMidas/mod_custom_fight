@@ -9,6 +9,8 @@
 	}
 	function isCombatSimulatorFight()
 	{
+		if (::Tactical.State.isScenarioMode()) return false;
+
 		return ::World.Flags.get("isCombatSimulatorFight");
 
 	}
