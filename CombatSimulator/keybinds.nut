@@ -1,6 +1,6 @@
 ::CombatSimulator.Mod.Keybinds.addSQKeybind("toggleCombatSimulatorSpawnScreen", "ctrl+s", ::MSU.Key.State.Tactical,  ::CombatSimulator.SpawnScreen.toggle.bindenv(::CombatSimulator.SpawnScreen), "Open tactical screen");
 ::CombatSimulator.Mod.Keybinds.addSQKeybind("toggleCombatSimulatorScreen", "ctrl+s", ::MSU.Key.State.World,  ::CombatSimulator.Screen.toggle.bindenv(::CombatSimulator.Screen), "Open worldmap screen");
-::CombatSimulator.Mod.Keybinds.addSQKeybind("initNextTurn", "f", ::MSU.Key.State.Tactical, function(){
+::CombatSimulator.Mod.Keybinds.addSQKeybind("initNextTurn", "shift+f", ::MSU.Key.State.Tactical, function(){
 	this.Tactical.TurnSequenceBar.initNextTurn(true);
 	return true;
 }, "End turn");
