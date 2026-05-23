@@ -85,7 +85,15 @@ this.combat_simulator_setup <- {
 	{
 		local ret = ["flat_sand_combatsimulator", "flat_snow_combatsimulator", "flat_grass_combatsimulator"];
 		ret.extend(clone ::Const.World.TerrainTacticalTemplate);
-		return ret;
+		local seen = {};
+		local deduped = [];
+		foreach (entry in ret)
+		{
+			if (entry in seen) continue;
+			seen[entry] <- true;
+			deduped.push(entry);
+		}
+		return deduped;
 	}
 
 	function queryTracklist()
