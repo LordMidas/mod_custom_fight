@@ -169,6 +169,9 @@ this.combat_simulator_setup <- {
 		p.EnemyDeploymentType = this.Const.Tactical.DeploymentType.Line;
 		p.IsAutoAssigningBases = false;
 		p.IsFleeingProhibited = _data.Settings.IsFleeingProhibited;
+		local seed = _data.Settings.Seed.tointeger();
+		p.MapSeed = seed;
+		::World.State.m.CombatSeed = seed != 0 ? seed : 0;
 		p.StartEmptyMode <- true;
 		p.IsUsingSetPlayers = true;
 

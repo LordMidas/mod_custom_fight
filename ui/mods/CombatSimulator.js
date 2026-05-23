@@ -36,6 +36,7 @@ var CombatSimulatorScreen = function(_parent)
         StartEmptyMode : true,
         IsFleeingProhibited : false,
         Fortification : false,
+        Seed : 0,
     }
 
     this.mTopBarButtons = {
@@ -240,8 +241,28 @@ CombatSimulatorScreen.prototype.createSettingsDiv = function()
     this.mIsFleeingProhibitedCheck = this.addCheckboxSetting(this.addRow(this.mSettingsBox), "fleeing-prohibited-checkbox", "IsFleeingProhibited", "uncheck", "Disallow fleeing").checkbox;
     this.mFortificationCheck = this.addCheckboxSetting(this.addRow(this.mSettingsBox), "fortification-checkbox", "Fortification", "uncheck", "Add fortification").checkbox;
 
+    var seedRow = this.addRow(this.mSettingsBox);
+    seedRow.append(this.getTextDiv("Seed", "label"));
+    var seedInputLayout = $('<div class="combatsim-short-input-container"/>');
+    seedRow.append(seedInputLayout);
+    this.mSeedInput = $('<input type="text" class="title-font-normal font-color-subtitle short-input"/>');
+    seedInputLayout.append(this.mSeedInput);
+    this.mSeedInput.val(0);
+    this.mSeedInput.on("keypress", function(_event){
+        var ch = String.fromCharCode(_event.which);
+        if (_event.which < 32) return;
+        if (ch === "-" && this.selectionStart === 0 && this.value.indexOf("-") === -1) return;
+        if (ch < "0" || ch > "9") _event.preventDefault();
+    });
+    this.mSeedInput.on("input change keyup", function(){
+        var v = $(this).val();
+        var n = parseInt(v, 10);
+        self.mSettings.Seed = isNaN(n) ? 0 : n;
+    });
+    this.mSeedInput.bindTooltip({ contentType: 'msu-generic', modId: CombatSimulator.ModID, elementId: "Screen.Settings.Seed"});
+
     var copyRow = this.addRow(this.mSettingsBox);
-    copyRow.append(this.getTextDiv("Copy Setup", "label")); 
+    copyRow.append(this.getTextDiv("Copy Setup", "label"));
     this.mCopyButton = copyRow.createTextButton("Copy", function(_div){
         self.copyData(self.gatherData());
     }, "combatsim-text-button", 4)
@@ -549,6 +570,9 @@ CombatSimulatorScreen.prototype.initialiseValues = function ()
     this.mCutDownTreesCheck.iCheck('uncheck');
     this.mIsFleeingProhibitedCheck.iCheck('uncheck');
     this.mFortificationCheck.iCheck('uncheck');
+
+    this.mSeedInput.val(0);
+    this.mSettings.Seed = 0;
 }
 
 CombatSimulatorScreen.prototype.reset = function()
@@ -623,6 +647,9 @@ CombatSimulatorScreen.prototype.setFromString = function(_string)
     setCheckboxFromBool(this.mCutDownTreesCheck, data.Settings.CutDownTrees);
     setCheckboxFromBool(this.mIsFleeingProhibitedCheck, data.Settings.IsFleeingProhibited);
     setCheckboxFromBool(this.mFortificationCheck, data.Settings.Fortification);
+    var pastedSeed = parseInt(data.Settings.Seed, 10);
+    this.mSettings.Seed = isNaN(pastedSeed) ? 0 : pastedSeed;
+    this.mSeedInput.val(this.mSettings.Seed);
     $.each(data.Factions, function(_factionKey, _faction)
     {
         var factionDiv = self.mFactions[_faction.ID];

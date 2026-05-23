@@ -141,9 +141,17 @@
 		local setInputLocked = o.setInputLocked;
 		o.setInputLocked = function(_bool)
 		{
-			if (::CombatSimulator.Screen.getButton("UnlockCamera").getValue()) 
+			if (::CombatSimulator.Screen.getButton("UnlockCamera").getValue())
 				return setInputLocked(false);
 			return setInputLocked(_bool);
+		}
+
+		local initMap = o.initMap;
+		o.initMap = function()
+		{
+			if (::CombatSimulator.isCombatSimulatorFight() && this.m.StrategicProperties.MapSeed != 0)
+				this.Math.seedRandom(this.m.StrategicProperties.MapSeed);
+			return initMap();
 		}
 
 		local onBattleEnded = o.onBattleEnded;

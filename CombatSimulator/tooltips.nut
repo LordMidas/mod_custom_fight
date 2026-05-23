@@ -21,6 +21,7 @@
 			IsFleeingProhibited = ::MSU.Class.BasicTooltip("Fleeing Probhibited", "Block fleeing, like in the arena."),
 			SpawnCompany = ::MSU.Class.BasicTooltip("Spawn Company", "Spawn your bros. This is unavailable if you spawn a bro using the 'Add Bro' button."),
 			ControlUnits = ::MSU.Class.BasicTooltip("Control Units", "If this is checked, you can control the units of this faction."),
+			Seed = ::MSU.Class.BasicTooltip("Seed", "Seed used for map generation, unit placement, and combat randomness. Integers only — use the same value to reproduce a fight. Leave at 0 for a random fight."),
 		},
 		Spawnlist = {
 			Main = {
